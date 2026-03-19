@@ -26,7 +26,14 @@ function timeAgo(date: string): string {
 
 export default function ProjectCard({ project, onEdit, onDelete }: Props) {
   return (
-    <div className="group relative flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 transition-all hover:border-white/[0.15] hover:bg-white/[0.05]">
+    <div
+      className="group relative flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 transition-all hover:border-white/[0.15] hover:bg-white/[0.05] cursor-pointer"
+      onClick={() => {
+        if (project.url) {
+          window.open(project.url, "_blank", "noopener,noreferrer");
+        }
+      }}
+    >
       {/* Header */}
       <div className="mb-3 flex items-start justify-between">
         <div className="min-w-0 flex-1">
@@ -63,7 +70,7 @@ export default function ProjectCard({ project, onEdit, onDelete }: Props) {
           {timeAgo(project.updated_at)}
         </span>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
           {project.url && (
             <a
               href={project.url}
